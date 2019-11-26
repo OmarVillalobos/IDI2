@@ -25,53 +25,123 @@ class Juego():
         else:
             return True
 
-    def minimax(self, score, level, player, pos1, direction):
-        valD = None
-        dirD = None
-        valU = None
-        dirU = None
-        valL = None
-        dirL = None
-        valR = None
-        dirR = None
-        if player:
-            #valm = self.tablero[pos1[0], pos1[1]]
-            if level == 0 or self.tablero[pos1[0],pos1[1]] == - 1:
-                return self.tablero[pos1[0], pos1[1]], direction
-            #self.tablero[pos1[0], pos1[1]] = - 1   
-            if self.validar([pos1[0] + 1, pos1[1]]): #Down
-                valD , dirD = self.minimax(score + self.tablero[pos1[0] + 1, pos1[1]] , level -1, False, [pos1[0] + 1, pos1[1]], self.down)
-            elif self.validar([pos1[0] - 1,pos1[1]]): #Up
-                valU , dirU = self.minimax(score + self.tablero[pos1[0] - 1, pos1[1]] , level -1, False, [pos1[0] - 1, pos1[1]], self.up)
-            elif self.validar([pos1[0],pos1[1] - 1]): #Left
-                valL , dirL = self.minimax(score + self.tablero[pos1[0], pos1[1] - 1] , level -1, False, [pos1[0], pos1[1] - 1], self.left)
-            elif self.validar([pos1[0],pos1[1] + 1]): #Right
-                valR , dirR = self.minimax(score + self.tablero[pos1[0], pos1[1] + 1] , level -1, False, [pos1[0], pos1[1] + 1], self.right)
+    # def minimax(self, score, level, player, pos1, direction):
+    #     valD = None
+    #     dirD = None
+    #     valU = None
+    #     dirU = None
+    #     valL = None
+    #     dirL = None
+    #     valR = None
+    #     dirR = None
+    #     if player:
+    #         valm = self.tablero[pos1[0], pos1[1]]
+    #         if level == 0 or valm == - 1:
+    #             return self.tablero[pos1[0], pos1[1]], direction
+    #         self.tablero[pos1[0], pos1[1]] = - 1   
+    #         if self.validar([pos1[0] + 1, pos1[1]]): #Down
+    #             valD , dirD = self.minimax(score + self.tablero[pos1[0] + 1, pos1[1]] , level -1, False, [pos1[0] + 1, pos1[1]], self.down)
+    #         elif self.validar([pos1[0] - 1,pos1[1]]): #Up
+    #             valU , dirU = self.minimax(score + self.tablero[pos1[0] - 1, pos1[1]] , level -1, False, [pos1[0] - 1, pos1[1]], self.up)
+    #         elif self.validar([pos1[0],pos1[1] - 1]): #Left
+    #             valL , dirL = self.minimax(score + self.tablero[pos1[0], pos1[1] - 1] , level -1, False, [pos1[0], pos1[1] - 1], self.left)
+    #         elif self.validar([pos1[0],pos1[1] + 1]): #Right
+    #             valR , dirR = self.minimax(score + self.tablero[pos1[0], pos1[1] + 1] , level -1, False, [pos1[0], pos1[1] + 1], self.right)
             
-            ardir = [valD,valU,valL,valR]
-            dirm = [dirD,dirU,dirL,dirR]
-            ardir_r = []
-            dirm_r = []
-            for i in range(len(ardir)):
-                if ardir[i] != None:
-                    ardir_r.append(ardir[i])
-                    dirm_r.append(dirm[i])
-            valm = max(ardir_r)
-            direction = dirm[ardir_r.index(valm)]
+    #         ardir = [valD,valU,valL,valR]
+    #         dirm = [dirD,dirU,dirL,dirR]
+    #         ardir_r = []
+    #         dirm_r = []
+    #         for i in range(len(ardir)):
+    #             if ardir[i] != None:
+    #                 ardir_r.append(ardir[i])
+    #                 dirm_r.append(dirm[i])
+    #         valm = max(ardir_r)
+    #         direction = dirm[ardir_r.index(valm)]
+    #         return valm, direction
+
+    #     else:
+    #         valm = self.tablero[self.pos2[0],self.pos2[1]]
+    #         if level == 0 or valm == - 1:
+    #             return self.tablero[self.pos2[0],self.pos2[1]], direction
+    #         self.tablero[self.pos2[0],self.pos2[1]] = - 1
+    #         if self.validar([self.pos2[0] + 1,self.pos2[1]]): #Down
+    #             valD , dirD = self.minimax(score - self.tablero[self.pos2[0] + 1,self.pos2[1]] , level -1, True, [self.pos2[0] + 1,self.pos2[1]], self.down)
+    #         elif self.validar([self.pos2[0] - 1,self.pos2[1]]): #Up
+    #             valU , dirU = self.minimax(score - self.tablero[self.pos2[0] - 1,self.pos2[1]] , level -1, True, [self.pos2[0] - 1,self.pos2[1]], self.up)
+    #         elif self.validar([self.pos2[0],self.pos2[1] - 1]): #Left
+    #             valL , dirL = self.minimax(score - self.tablero[self.pos2[0],self.pos2[1] - 1] , level -1, True, [self.pos2[0],self.pos2[1] - 1], self.left)
+    #         elif self.validar([self.pos2[0],self.pos2[1] + 1]): #Right
+    #             valR , dirR = self.minimax(score - self.tablero[self.pos2[0],self.pos2[1] + 1] , level -1, True, [self.pos2[0],self.pos2[1] + 1], self.right)
+            
+    #         ardir = [valD,valU,valL,valR]
+    #         dirm = [dirD,dirU,dirL,dirR]
+    #         ardir_r = []
+    #         dirm_r = []
+    #         for i in range(len(ardir)):
+    #             if ardir[i] != None:
+    #                 ardir_r.append(ardir[i])
+    #                 dirm_r.append(dirm[i])
+    #         valm = min(ardir_r)
+    #         direction = dirm[ardir_r.index(valm)]
+    #     return valm, direction
+
+    def minimax(self,score , level, player, pos1 alpha, beta):
+        if player:
+            val = self.tablero[pos1[0], pos1[1]]
+            if level == 0 or val == - 1:
+                return val, direction
+            self.tablero[pos1[0], pos1[1]] = - 1   
+            if self.validar([pos1[0] + 1, pos1[1]]): #Down
+                val , direction = self.minimax(score + self.tablero[pos1[0] + 1, pos1[1]], level -1, False, [self.pos2[0] + 1, self.pos2[1]])
+                if val > alpha:
+                    alpha = val
+                    if alpha >= beta:
+                        return val, 'Down'
+            elif self.validar([pos1[0] - 1,pos1[1]]): #Up
+                val , direction = self.minimax(score + self.tablero[pos1[0] - 1, pos1[1]], level -1, False, [self.pos2[0] - 1, self.pos2[1]])
+                if val > alpha:
+                    alpha = val
+                    if alpha >= beta:
+                        return val, 'Up'
+            elif self.validar([pos1[0],pos1[1] - 1]): #Left
+                val , direction = self.minimax(score + self.tablero[pos1[0], pos1[1] - 1], level -1, False, [self.pos2[0], self.pos2[1] - 1])
+                if val > alpha:
+                    alpha = val
+                    if alpha >= beta:
+                        return val, 'Left'
+            elif self.validar([pos1[0],pos1[1] + 1]): #Right
+                val , direction = self.minimax(score + self.tablero[pos1[0], pos1[1] + 1], level -1, False, [self.pos2[0], self.pos2[1] + 1])
+                if val > alpha:
+                    alpha = val
+                    if alpha >= beta:
+                        return val, 'Right'
+            
+            # ardir = [valD,valU,valL,valR]
+            # dirm = [dirD,dirU,dirL,dirR]
+            # ardir_r = []
+            # dirm_r = []
+            # for i in range(len(ardir)):
+            #     if ardir[i] != None:
+            #         ardir_r.append(ardir[i])
+            #         dirm_r.append(dirm[i])
+            # valm = max(ardir_r)
+            # direction = dirm[ardir_r.index(valm)]
             return valm, direction
 
         else:
-            if level == 0 or self.tablero[self.pos2[0],self.pos2[1]] == - 1:
+            valm = self.tablero[self.pos2[0],self.pos2[1]]
+            if level == 0 or valm == - 1:
                 return self.tablero[self.pos2[0],self.pos2[1]], direction
-            #self.tablero[self.pos2[0],self.pos2[1]] = - 1
+            self.tablero[self.pos2[0],self.pos2[1]] = - 1
             if self.validar([self.pos2[0] + 1,self.pos2[1]]): #Down
-                valD , dirD = self.minimax(score - self.tablero[self.pos2[0] + 1,self.pos2[1]] , level -1, True, [self.pos2[0] + 1,self.pos2[1]], self.down)
+                valD , dirD = self.minimax(score - self.tablero[self.pos2[0] + 1,self.pos2[1]] , level -1, True, [pos1[0] + 1,pos1[1]])
             elif self.validar([self.pos2[0] - 1,self.pos2[1]]): #Up
-                valU , dirU = self.minimax(score - self.tablero[self.pos2[0] - 1,self.pos2[1]] , level -1, True, [self.pos2[0] - 1,self.pos2[1]], self.up)
+                valU , dirU = self.minimax(score - self.tablero[self.pos2[0] - 1,self.pos2[1]] , level -1, True, [pos1[0] - 1,pos1[1]])
             elif self.validar([self.pos2[0],self.pos2[1] - 1]): #Left
-                valL , dirL = self.minimax(score - self.tablero[self.pos2[0],self.pos2[1] - 1] , level -1, True, [self.pos2[0],self.pos2[1] - 1], self.left)
+                valL , dirL = self.minimax(score - self.tablero[self.pos2[0],self.pos2[1] - 1] , level -1, True, [pos1[0],pos1[1] - 1])
             elif self.validar([self.pos2[0],self.pos2[1] + 1]): #Right
-                valR , dirR = self.minimax(score - self.tablero[self.pos2[0],self.pos2[1] + 1] , level -1, True, [self.pos2[0],self.pos2[1] + 1], self.right)
+                valR , dirR = self.minimax(score - self.tablero[self.pos2[0],self.pos2[1] + 1] , level -1, True, [pos1[0],pos1[1] + 1])
             
             ardir = [valD,valU,valL,valR]
             dirm = [dirD,dirU,dirL,dirR]
@@ -85,6 +155,7 @@ class Juego():
             direction = dirm[ardir_r.index(valm)]
         return valm, direction
 
+
 # main
 def tablero(size):
     tab = np.random.randint(size*2, size = (size,size))
@@ -92,9 +163,12 @@ def tablero(size):
 
 
 tab = tablero(3)
-jugar = Juego(3, tab)
+tab = np.matrix([[1,1,5],[2,3,3],[2,4,4]])
 
-print(jugar.minimax(tab[0,0]-tab[2,2],3,True,[0,0],'Down'))
+jugar = Juego(3, tab)
+print(tab)
+print(jugar.minimax(tab[0,0]-tab[2,2],-3,True,[0,0],'ffgv'))
+print(tab)
 
 
 
